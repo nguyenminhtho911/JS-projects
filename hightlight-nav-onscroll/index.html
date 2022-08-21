@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<style>
+    * {
+        text-decoration: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    nav {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        position: fixed;
+        left: 0;
+        top: 0;
+        background-color: #fff;
+        z-index: 9;
+        padding: 10px 0;
+        border-bottom: 1px solid;
+    }
+
+    nav a {
+        color: #333;
+    }
+
+    a.active {
+        text-decoration: underline;
+    }
+
+    div {
+        height: 70vh;
+    }
+
+    #sec1 {
+        background-color: red;
+    }
+
+    #sec2 {
+        background-color: blue;
+    }
+
+    #sec3 {
+        background-color: green;
+    }
+
+    #sec4 {
+        background-color: orange;
+    }
+
+    #sec5 {
+        background-color: gray;
+    }
+</style>
+
+<body>
+    <nav>
+        <a href="#sec1">sec1</a>
+        <a href="#sec2">sec2</a>
+        <a href="#sec3">sec3</a>
+        <a href="#sec4">sec4</a>
+        <a href="#sec5">sec5</a>
+    </nav>
+    <div></div>
+    <div id="sec1"></div>
+    <div id="sec2"></div>
+    <div id="sec3"></div>
+    <div id="sec4"></div>
+    <div id="sec5"></div>
+
+    <script>
+        // -- smooth
+        const nav = document.querySelector('nav')
+        const anchor = nav.querySelectorAll('a')
+        // anchor.forEach((a) => {
+        for (a of anchor) {
+            a.onclick = function (e) {
+                e.preventDefault()
+                const idSec = e.target.getAttribute('href')
+                const sec = document.querySelector(idSec)
+                const top = sec.offsetTop - nav.offsetHeight
+                window.scroll({
+                    top: top,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // -- on scroll active
+        window.addEventListener("scroll", function () {
+            const scrollY = window.pageYOffset
+            // anchor.forEach((a) => {
+            for (a of anchor) {
+                const idSec = a.getAttribute('href')
+                const sec = document.querySelector(idSec)
+                if (scrollY + nav.offsetHeight >= sec.offsetTop
+                    &&
+                    (scrollY + nav.offsetHeight) < (sec.offsetTop + sec.offsetHeight)) {
+                    a.classList.add('active')
+                } else {
+                    a.classList.remove('active')
+                }
+            }
+        })
+
+    </script>
+</body>
+
+</html>

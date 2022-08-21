@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    div {
+
+        height: 50vh;
+        opacity: 0;
+        transition: all 1s;
+    }
+
+    .fadeIn {
+        opacity: 1;
+    }
+
+    #sec1 {
+        background-color: red;
+        height: 100px;
+    }
+
+    #sec2 {
+        background-color: blue;
+        height: 200px;
+
+    }
+
+    #sec3 {
+        background-color: green;
+        height: 300px;
+
+    }
+
+    #sec4 {
+        background-color: orange;
+        height: 400px;
+
+    }
+
+    #sec5 {
+        background-color: gray;
+        height: 500px;
+
+    }
+
+    /* tab */
+    .tab-content li {
+        display: none;
+    }
+
+    .tab-content .active {
+        display: block;
+    }
+
+    .tab-link .active {
+        color: red;
+    }
+</style>
+
+<body>
+    <div>
+        <ul class="tab-link">
+            <li class="active">tab1</li>
+            <li>tab2</li>
+            <li>tab3</li>
+        </ul>
+        <ul class="tab-content">
+            <li class="active">
+                tab content 1 <br>
+                tab content 1
+            </li>
+            <li>
+                tab content 2 <br>
+                tab content 2
+            </li>
+            <li>
+                tab content 3 <br>
+                tab content 3
+
+            </li>
+        </ul>
+    </div>
+    <div id="sec1"></div>
+    <div id="sec2"></div>
+    <div id="sec3"></div>
+    <div id="sec4"></div>
+    <div id="sec5"></div>
+
+    <script>
+        // classList: 
+        const el = document.querySelectorAll('div')
+
+        const hWin = window.innerHeight / 2
+
+
+        window.addEventListener('scroll', () => {
+            const scrollY = window.pageYOffset
+
+            for (const item of el) {
+                const elmentTop = item.offsetTop
+                const height = item.offsetHeight
+                if (scrollY + hWin >= elmentTop) {
+                    item.classList.add("fadeIn")
+                } else {
+                    item.classList.remove("fadeIn")
+                }
+            }
+        })
+
+        //tab
+
+        const tabLinks = document.querySelectorAll('.tab-link li')
+        const tabContents = document.querySelectorAll('.tab-content li')
+
+        tabLinks.forEach((tabLink, index) => {
+            tabLink.onclick = (e) => {
+                document.querySelector(".tab-link li.active").classList.remove("active")
+                document.querySelector(".tab-content li.active").classList.remove("active")
+
+
+                e.target.classList.add("active")
+
+
+                tabContents[index].classList.add("active")
+            }
+        });
+
+    </script>
+</body>
+
+</html>
